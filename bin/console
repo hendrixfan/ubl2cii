@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "ubl2cii"
+
+puts "Enter the path to the UBL XML file:"
+ubl_file_path = gets.chomp
+
+ubl_xml = File.read(ubl_file_path)
+converter = Ubl2Cii::Converter.new(ubl_xml)
+cii_xml = converter.convert
+
+puts "Converted CII XML content:"
+puts cii_xml
