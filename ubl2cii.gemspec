@@ -2,9 +2,9 @@
 
 Gem::Specification.new do |spec|
   spec.name          = 'ubl2cii'
-  spec.version       = '0.1.0'
-  spec.authors       = ['Your Name']
-  spec.email         = ['your.email@example.com']
+  spec.version       = Ubl2Cii::VERSION
+  spec.authors       = ['Wolfgang Fournes']
+  spec.email         = ['w.wohanka@gmail.com']
 
   spec.summary       = 'A Ruby Gem to convert UBL XML files to CII XML files'
   spec.description   = 'This Gem provides a simple way to convert UBL XML files to CII XML files.'
