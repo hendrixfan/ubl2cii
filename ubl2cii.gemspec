@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'lib/ubl2cii/version'
+
 Gem::Specification.new do |spec|
   spec.name          = 'ubl2cii'
   spec.version       = Ubl2Cii::VERSION
