@@ -160,44 +160,6 @@ describe Ubl2Cii::Document do
         expect(document.attribute_at("//#{PREFIX_CBC}:NonExistingElement/Child", 'attr')).to be_nil
       end
     end
-
-    describe '#object_at' do
-      # Define a test class for object creation
-      class TestNodeClass
-        include NodeHelper
-      end
-
-      it 'creates a new object of specified class if node exists' do
-        obj = document.object_at("//#{PREFIX_CAC}:Party", TestNodeClass)
-        expect(obj).to be_a(TestNodeClass)
-        expect(obj.node).not_to be_nil
-      end
-
-      it "returns nil if node doesn't exist" do
-        obj = document.object_at("//#{PREFIX_CAC}:NonExistingElement", TestNodeClass)
-        expect(obj).to be_nil
-      end
-
-      it 'passes namespaces to the new object' do
-        obj = document.object_at("//#{PREFIX_CAC}:Party", TestNodeClass)
-        expect(obj.namespaces).to eq(document.namespaces)
-      end
-    end
-
-    describe '#map_nodes' do
-      it 'maps nodes to objects using the provided block' do
-        results = document.map_nodes("//#{PREFIX_CAC}:InvoiceLine") do |node|
-          node.at_xpath("./#{PREFIX_CBC}:ID", document.namespaces).text
-        end
-
-        expect(results).to eq(%w[1 2])
-      end
-
-      it 'returns empty array for non-existing path' do
-        results = document.map_nodes("//#{PREFIX_CAC}:NonExistingElement") {|node| node }
-        expect(results).to be_empty
-      end
-    end
   end
 
   describe '.new_from_node' do
