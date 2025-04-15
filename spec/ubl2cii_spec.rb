@@ -24,6 +24,9 @@ describe Ubl2Cii do
 
       it "converts UBL to CII format" do
         expect(cii_xml).to include('xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"')
+        expect(cii_xml).to include('xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100"')
+        expect(cii_xml).to include('xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100"')
+        expect(cii_xml).to include('xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"')
         expect(cii_xml).to include("<ID>INVOICE-001</ID>")
       end
 
