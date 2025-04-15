@@ -160,6 +160,38 @@ describe Ubl2Cii::Document do
         expect(document.attribute_at("//#{PREFIX_CBC}:NonExistingElement/Child", 'attr')).to be_nil
       end
     end
+
+    describe '#object_at' do
+      it 'returns a new object if node exists at path' do
+        party = document.object_at("//#{PREFIX_CAC}:AccountingSupplierParty//#{PREFIX_CAC}:Party", described_class)
+        expect(party).to be_a(described_class)
+        expect(party.content_at(".//#{PREFIX_CBC}:Name")).to eq('Supplier Name')
+      end
+
+      it 'returns nil for non-existing path' do
+        party = document.object_at("//#{PREFIX_CAC}:NonExistingElement", described_class)
+        expect(party).to be_nil
+      end
+    end
+
+    describe '#map_nodes' do
+      it 'maps nodes to objects' do
+        lines = document.map_nodes("//#{PREFIX_CAC}:InvoiceLine") do |node|
+          described_class.new_from_node(node, document.namespaces)
+        end
+        expect(lines.size).to eq(2)
+        expect(lines).to all(be_a(described_class))
+        expect(lines.first.content_at(".//#{PREFIX_CBC}:ID")).to eq('1')
+        expect(lines.last.content_at(".//#{PREFIX_CBC}:ID")).to eq('2')
+      end
+
+      it 'returns empty array for non-existing path' do
+        lines = document.map_nodes("//#{PREFIX_CAC}:NonExistingElement") do |node|
+          described_class.new_from_node(node, document.namespaces)
+        end
+        expect(lines).to be_empty
+      end
+    end
   end
 
   describe '.new_from_node' do
