@@ -26,15 +26,6 @@ describe Ubl2Cii do
         expect(cii_xml).to include('xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"')
         expect(cii_xml).to include("<ID>INVOICE-001</ID>")
       end
-    end
-
-    describe "#convert_to_cii" do
-      let(:cii_xml) { converter.convert_to_cii }
-
-      it "converts UBL to CII format" do
-        expect(cii_xml).to include('xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"')
-        expect(cii_xml).to include("<ID>INVOICE-001</ID>")
-      end
 
       context "with additional elements" do
         let(:ubl_xml) do
