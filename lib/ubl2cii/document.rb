@@ -40,13 +40,14 @@ module Ubl2Cii
     def initialize(xml)
       @xml = xml
       @doc = Nokogiri::XML(xml, nil, OUTPUT_ENCODING)
-      super(@doc, {
+      @node = @doc
+      @namespaces = {
         PREFIX_RSM => NAMESPACE_RSM,
         PREFIX_RAM => NAMESPACE_RAM,
         PREFIX_UDT => NAMESPACE_UDT,
         PREFIX_CBC => NAMESPACE_CBC,
         PREFIX_CAC => NAMESPACE_CAC
-      })
+      }
     end
 
     # Helper method to create documents from nodes
