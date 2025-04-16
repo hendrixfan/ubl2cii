@@ -53,7 +53,7 @@ module Ubl2Cii
       def build_attributes(document, element_def)
         attributes = {}
         if element_def[:source_properties]
-          attributes.merge!(handle_source_properties(element_def[:source_properties], element_def[:source], document))
+          attributes.merge!(handle_properties(element_def[:source_properties], element_def[:source], document))
         end
         attributes.merge!(handle_properties(element_def[:properties], document)) if element_def[:properties]
         attributes
@@ -72,10 +72,14 @@ module Ubl2Cii
         xml[prefix].send(element_def[:name], value, attributes)
       end
 
-      def handle_properties(properties, document)
+      def handle_properties(properties, source = nil, document)
         resolved_properties = {}
         properties.each do |key, value|
-          resolved_properties[key] = value.is_a?(Proc) ? extract_value(document, value.call) : value
+          resolved_properties[key] = if value.is_a?(Proc)
+                                       extract_value(document, value.call)
+                                     else
+                                       document.attribute_at(source, key) || value
+                                     end
         end
         resolved_properties
       end
@@ -94,15 +98,6 @@ module Ubl2Cii
         else
           value
         end
-      end
-
-      def handle_source_properties(source_properties, source, document)
-        resolved_properties = {}
-        source_properties.each do |key|
-          resolved_properties[key] = document.attribute_at(source, key)
-        end
-
-        resolved_properties
       end
 
       def build_collection(xml, document, element_def, parent_prefix)
