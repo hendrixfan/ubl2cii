@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   test:
-
+    permissions: write-all
     runs-on: ubuntu-latest
     strategy:
       matrix:
