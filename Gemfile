@@ -1,4 +1,14 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in ubl_to_cii_converter.gemspec
+gem 'nokogiri', '>= 1.18'
+
+group :development do
+    gem 'bundler', '~> 2.0'
+    gem 'pry'
+    gem 'rake', '~> 13.0'
+    gem 'rspec', '~> 3.0'
+end
+
+gem 'simplecov', require: false, group: :test
+
 gemspec
