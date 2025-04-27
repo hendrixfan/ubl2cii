@@ -3,6 +3,9 @@
 require 'bundler/setup'
 require 'ubl2cii'
 require 'pry'
+require 'simplecov'
+
+SimpleCov.start
 
 module RspecAccessorsHelper
   def file_fixture(name)
