@@ -28,7 +28,7 @@ module Ubl2Cii
       end
     end
 
-    alias_method :at_xpath, :xpath
+    alias at_xpath xpath
 
     def content_at(path)
       xpath(path)&.content

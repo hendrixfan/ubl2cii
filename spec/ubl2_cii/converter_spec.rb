@@ -79,7 +79,8 @@ describe Ubl2Cii::Converter do
       end
 
       it 'maps invoice note' do
-        expect(find_value('//rsm:ExchangedDocument/ram:IncludedNote/ram:Content')).to eq('Ordered in our booth at the convention.')
+        expect(find_value('//rsm:ExchangedDocument/ram:IncludedNote/ram:Content'))
+          .to eq('Ordered in our booth at the convention.')
       end
     end
 
@@ -99,7 +100,9 @@ describe Ubl2Cii::Converter do
         end
 
         it 'maps accounting cost' do
-          expect(find_value('//ram:ApplicableHeaderTradeSettlement/ram:ReceivableSpecifiedTradeAccountingAccount/ram:ID')).to eq('Project cost code 123')
+          expect(
+            find_value('//ram:ApplicableHeaderTradeSettlement/ram:ReceivableSpecifiedTradeAccountingAccount/ram:ID')
+          ).to eq('Project cost code 123')
         end
       end
 
@@ -117,7 +120,8 @@ describe Ubl2Cii::Converter do
 
         it 'maps invoice period start date' do
           date_element = cii_doc.xpath(
-            '//ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTimeString', namespaces
+            '//ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:StartDateTime/udt:DateTimeString',
+            namespaces
           ).first
           expect(date_element.text).to eq('20091101')
           expect(date_element['format']).to eq('102')
@@ -125,7 +129,8 @@ describe Ubl2Cii::Converter do
 
         it 'maps invoice period end date' do
           date_element = cii_doc.xpath(
-            '//ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTimeString', namespaces
+            '//ram:ApplicableHeaderTradeSettlement/ram:BillingSpecifiedPeriod/ram:EndDateTime/udt:DateTimeString',
+            namespaces
           ).first
           expect(date_element.text).to eq('20091130')
           expect(date_element['format']).to eq('102')
@@ -155,7 +160,9 @@ describe Ubl2Cii::Converter do
         end
 
         it 'maps tax total amount' do
+          # rubocop:disable Layout/LineLength
           tax_total = find_value('//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxTotalAmount')
+          # rubocop:enable Layout/LineLength
           expect(tax_total).to eq('25.00')
         end
 
@@ -185,22 +192,30 @@ describe Ubl2Cii::Converter do
         end
 
         it 'maps line extension amount' do
+          # rubocop:disable Layout/LineLength
           amount = find_value('//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:LineTotalAmount')
+          # rubocop:enable Layout/LineLength
           expect(amount).to eq('100.00')
         end
 
         it 'maps tax basis total amount' do
+          # rubocop:disable Layout/LineLength
           amount = find_value('//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:TaxBasisTotalAmount')
+          # rubocop:enable Layout/LineLength
           expect(amount).to eq('100.00')
         end
 
         it 'maps grand total amount' do
+          # rubocop:disable Layout/LineLength
           amount = find_value('//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:GrandTotalAmount')
+          # rubocop:enable Layout/LineLength
           expect(amount).to eq('125.00')
         end
 
         it 'maps due payable amount' do
+          # rubocop:disable Layout/LineLength
           amount = find_value('//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradeSettlementHeaderMonetarySummation/ram:DuePayableAmount')
+          # rubocop:enable Layout/LineLength
           expect(amount).to eq('125.00')
         end
       end
@@ -266,9 +281,12 @@ describe Ubl2Cii::Converter do
         end
 
         it 'maps due date' do
+          # rubocop:disable Layout/LineLength
           date_element = cii_doc.xpath(
-            '//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms/ram:DueDateDateTime/udt:DateTimeString', namespaces
+            '//ram:ApplicableHeaderTradeSettlement/ram:SpecifiedTradePaymentTerms/ram:DueDateDateTime/udt:DateTimeString',
+            namespaces
           )
+          # rubocop:enable Layout/LineLength
           expect(date_element.text).to eq('20100114')
           expect(date_element.attr('format').value).to eq('102')
         end
@@ -351,11 +369,19 @@ describe Ubl2Cii::Converter do
         end
 
         it 'maps order reference ID' do
-          expect(find_value('//ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID')).to eq('123')
+          expect(
+            find_value(
+              '//ram:ApplicableHeaderTradeAgreement/ram:BuyerOrderReferencedDocument/ram:IssuerAssignedID'
+            )
+          ).to eq('123')
         end
 
         it 'maps contract reference ID' do
-          expect(find_value('//ram:ApplicableHeaderTradeAgreement/ram:ContractReferencedDocument/ram:IssuerAssignedID')).to eq('Contract321')
+          expect(
+            find_value(
+              '//ram:ApplicableHeaderTradeAgreement/ram:ContractReferencedDocument/ram:IssuerAssignedID'
+            )
+          ).to eq('Contract321')
         end
 
         context 'AdditionalReferencedDocument' do
@@ -461,7 +487,8 @@ describe Ubl2Cii::Converter do
 
         context 'SpecifiedLegalOrganization' do
           it 'maps seller trading name' do
-            expect(find_value("#{seller_path}/ram:SpecifiedLegalOrganization/ram:TradingBusinessName")).to eq('The Seller Legal Name')
+            expect(find_value("#{seller_path}/ram:SpecifiedLegalOrganization/ram:TradingBusinessName"))
+              .to eq('The Seller Legal Name')
           end
 
           it 'maps company ID' do
@@ -569,9 +596,12 @@ describe Ubl2Cii::Converter do
       end
 
       it 'maps actual delivery date' do
+        # rubocop:disable Layout/LineLength
         date_element = cii_doc.xpath(
-          '//ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent/ram:OccurrenceDateTime/udt:DateTimeString', namespaces
+          '//ram:ApplicableHeaderTradeDelivery/ram:ActualDeliverySupplyChainEvent/ram:OccurrenceDateTime/udt:DateTimeString',
+          namespaces
         )
+        # rubocop:enable Layout/LineLength
         expect(date_element.text).to eq('20091201')
         expect(date_element.attr('format').value).to eq('102')
       end
@@ -683,7 +713,8 @@ describe Ubl2Cii::Converter do
 
         it 'maps line total amount' do
           amount = line_item.xpath(
-            './ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount', namespaces
+            './ram:SpecifiedLineTradeSettlement/ram:SpecifiedTradeSettlementLineMonetarySummation/ram:LineTotalAmount',
+            namespaces
           )
           expect(amount.text).to eq('100.00')
           expect(amount.attr('currencyID').value).to eq('EUR')

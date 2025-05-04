@@ -53,7 +53,7 @@ module Ubl2Cii
       def build_attributes(document, element_def)
         attributes = {}
         if element_def[:source_properties]
-          attributes.merge!(handle_properties(element_def[:source_properties], element_def[:source], document))
+          attributes.merge!(handle_properties(element_def[:source_properties], document, element_def[:source]))
         end
         attributes.merge!(handle_properties(element_def[:properties], document)) if element_def[:properties]
         attributes
@@ -72,7 +72,7 @@ module Ubl2Cii
         xml[prefix].send(element_def[:name], value, attributes)
       end
 
-      def handle_properties(properties, source = nil, document)
+      def handle_properties(properties, document, source=nil)
         resolved_properties = {}
         properties.each do |key, value|
           resolved_properties[key] = if value.is_a?(Proc)
@@ -141,6 +141,7 @@ module Ubl2Cii
     class NestedMapping < Dsl
     end
 
+    # rubocop:disable Metrics/BlockLength
     class Cii < Dsl
       element 'ExchangedDocumentContext', prefix: PREFIX_RSM do
         element 'GuidelineSpecifiedDocumentContextParameter', prefix: PREFIX_RAM do
@@ -390,5 +391,6 @@ prefix: PREFIX_UDT
         end
       end
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end

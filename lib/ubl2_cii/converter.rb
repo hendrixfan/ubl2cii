@@ -23,6 +23,7 @@ module Ubl2Cii
 
     def clean_empty_elements(node)
       pending = node.children.to_a
+      # rubocop:disable Lint/AssignmentInCondition
       while element = pending.pop
         pending.concat(element.children.to_a)
 
@@ -30,6 +31,7 @@ module Ubl2Cii
 
         element.remove if element.children.empty? && element.attributes.empty?
       end
+      # rubocop:enable Lint/AssignmentInCondition
       node
     end
 
