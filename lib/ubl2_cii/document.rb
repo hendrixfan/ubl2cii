@@ -50,7 +50,7 @@ module Ubl2Cii
     def self.new_from_node(node, namespaces)
       doc = Document.allocate
       doc.instance_variable_set(:@node, node)
-      doc.instance_variable_set(:@doc, node.document || node)
+      doc.instance_variable_set(:@doc, node&.document || node)
       doc.instance_variable_set(:@namespaces, namespaces)
       doc
     end
