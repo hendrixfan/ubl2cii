@@ -9,7 +9,7 @@ ubl_file_path = gets.chomp
 
 ubl_xml = File.read(ubl_file_path)
 converter = Ubl2Cii::Converter.new(ubl_xml)
-cii_xml = converter.convert
+cii_xml = converter.convert_to_cii
 
 puts "Converted CII XML content:"
 puts cii_xml

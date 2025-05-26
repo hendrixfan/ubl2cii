@@ -91,7 +91,7 @@ module Ubl2Cii
         when 'DateTimeString'
           date_value = begin
             DateTime.parse(value)
-          rescue StandardError
+          rescue ArgumentError
             nil
           end
           date_value&.strftime('%Y%m%d')
