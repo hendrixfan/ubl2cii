@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ubl2cii (0.1.0)
+    ubl2cii (0.1.1)
       nokogiri (>= 1.18)
 
 GEM
